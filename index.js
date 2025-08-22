@@ -12,7 +12,17 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+
+app.use(
+  cors({
+    origin: ["https://kraftbase-client.vercel.app"], 
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
+app.use(cors({ origin: "*" }));
 
 const PORT = process.env.PORT || 4000;
 
