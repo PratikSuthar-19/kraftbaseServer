@@ -19,10 +19,28 @@ const PORT = process.env.PORT || 4000;
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes); 
 
-sequelize.sync().then(() => {
-  app.listen(PORT, () =>
-    console.log(` Server running on http://localhost:${PORT}`)
-  );
-});
+
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Connected to PostgreSQL");
+
+    // sync models here
+    await sequelize.sync({ alter: true }); 
+    console.log(" Database synced");
+
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  } catch (err) {
+    console.error("Unable to connect:", err);
+  }
+})();
+
+
+
+// sequelize.sync().then(() => {
+//   app.listen(PORT, () =>
+//     console.log(` Server running on http://localhost:${PORT}`)
+//   );
+// });
 
 
