@@ -1,9 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import authRoutes from "../routes/authRoutes.js";
-import taskRoutes from "../routes/taskRoutes.js";
-import sequelize from "../config/db.js";
+import authRoutes from "./routes/authRoutes.js";
+import taskRoutes from "./routes/taskRoutes.js";
+import sequelize from "./config/db.js";
 
 
 
@@ -25,9 +25,4 @@ sequelize.sync().then(() => {
   );
 });
 
-// export default async function handler(req, res) {
-//   app(req, res);
-// }
-export default function handler(req, res) {
-  res.status(200).json({ message: "API works!" });
-}
+
